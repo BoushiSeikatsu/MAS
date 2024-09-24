@@ -6,7 +6,7 @@
 
 import pandas as pd
 import seaborn as sns
-
+import numpy as np
 
 # In[2]:
 
@@ -123,7 +123,15 @@ def printFrequencyChart(adjacencyList):
 
 
 # In[ ]:
+#Returns Density in percentile 
+def getDensity(nodeConnections, countAllNodes):
+    return round(len(nodeConnections)/(countAllNodes - 1) * 100, 2)
 
-
-
-
+def getDensityForAll(adjacencyList):
+    result = np.empty([len(adjacencyList),1])
+    i = 0
+    for value in adjacencyList.values():
+        density = getDensity(value, len(adjacencyList))
+        result[i] = density
+        i += 1
+    return pd.DataFrame(data=result, columns=["Hustota (%)"])
